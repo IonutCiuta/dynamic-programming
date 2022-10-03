@@ -19,6 +19,6 @@ public class MatrixGenerator {
         data[i][j] = random.nextInt(maxCellValue);
       }
     }
-    return new Matrix<>(data);
+    return new IntMatrix(data);
   }
 }
