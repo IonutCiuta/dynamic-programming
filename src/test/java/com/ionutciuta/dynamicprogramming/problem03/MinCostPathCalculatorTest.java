@@ -19,6 +19,7 @@ class MinCostPathCalculatorTest {
 
     assertEquals(4, MinCostPathCalculator.computeRecursively(m));
     assertEquals(4, MinCostPathCalculator.computeRecursivelyWithMemo(m));
+    assertEquals(4, MinCostPathCalculator.computeIteratively(m));
   }
 
   @Test
@@ -32,6 +33,7 @@ class MinCostPathCalculatorTest {
 
     assertEquals(5, MinCostPathCalculator.computeRecursively(m));
     assertEquals(5, MinCostPathCalculator.computeRecursivelyWithMemo(m));
+    assertEquals(5, MinCostPathCalculator.computeIteratively(m));
   }
 
   @Test
@@ -47,14 +49,15 @@ class MinCostPathCalculatorTest {
 
     assertEquals(52, MinCostPathCalculator.computeRecursively(m));
     assertEquals(52, MinCostPathCalculator.computeRecursivelyWithMemo(m));
+    assertEquals(52, MinCostPathCalculator.computeIteratively(m));
   }
 
   @Test
-  public void timeSolutions() {
+  public void timeAllSolutions() {
     final var m = (IntMatrix) MatrixGenerator.getRandomIntMatrix(17, 10);
 
     long start = System.currentTimeMillis();
-    final var costRecursively = MinCostPathCalculator.computeRecursively(m);
+    final var baseline = MinCostPathCalculator.computeRecursively(m);
     long duration = System.currentTimeMillis() - start;
     System.out.println("computeRecursively: " + duration + " ms");
 
@@ -63,6 +66,29 @@ class MinCostPathCalculatorTest {
     duration = System.currentTimeMillis() - start;
     System.out.println("computeRecursivelyWithMemo: " + duration + " ms");
 
-    assertEquals(costRecursively, costRecursivelyWithMemo);
+    start = System.currentTimeMillis();
+    final var costIteratively = MinCostPathCalculator.computeIteratively(m);
+    duration = System.currentTimeMillis() - start;
+    System.out.println("computeIteratively: " + duration + " ms");
+
+    assertEquals(baseline, costRecursivelyWithMemo);
+    assertEquals(baseline, costIteratively);
+  }
+
+  @Test
+  public void timeDpSolutions() {
+    final var m = (IntMatrix) MatrixGenerator.getRandomIntMatrix(500, 10);
+
+    long start = System.currentTimeMillis();
+    final var baseline = MinCostPathCalculator.computeRecursivelyWithMemo(m);
+    long duration = System.currentTimeMillis() - start;
+    System.out.println("computeRecursivelyWithMemo: " + duration + " ms");
+
+    start = System.currentTimeMillis();
+    final var costIteratively = MinCostPathCalculator.computeIteratively(m);
+    duration = System.currentTimeMillis() - start;
+    System.out.println("computeIteratively: " + duration + " ms");
+
+    assertEquals(baseline, costIteratively);
   }
 }
