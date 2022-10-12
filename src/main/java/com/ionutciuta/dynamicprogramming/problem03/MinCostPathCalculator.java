@@ -86,7 +86,7 @@ public class MinCostPathCalculator {
       dp[0][j] += dp[0][j - 1] + matrix.getValue(0, j);
     }
 
-    for (int i = 1; i < n; i++) {
+    for (int i = 1; i < m; i++) {
       dp[i][0] += dp[i - 1][0] + matrix.getValue(i, 0);
     }
 
@@ -103,5 +103,34 @@ public class MinCostPathCalculator {
 
     // target
     return dp[m - 1][n - 1];
+  }
+
+  // DP bottom-up
+  public static int computeIterativelyOptimized(IntMatrix matrix) {
+    final var m = matrix.getRowCount();
+    final var n = matrix.getColumnCount();
+
+    // compute first row of dp
+    var prevDp = new int[n];
+    prevDp[0] = matrix.getValue(0, 0);
+    for (int i = 1; i < n; i++) {
+      prevDp[i] = prevDp[i - 1] + matrix.getValue(0, i);
+    }
+
+    for (int i = 1; i < m; i++) {
+      // start fresh for current row of dp
+      var currDp = new int[n];
+      // set left-most border of dp
+      currDp[0] = prevDp[0] + matrix.getValue(i, 0);
+      // compute current row of dp
+      for (int j = 1; j < n; j++) {
+        currDp[j] = matrix.getValue(i, j) + Math.min(prevDp[j], currDp[j - 1]);
+      }
+      // switch & move on
+      prevDp = currDp;
+    }
+
+    // target
+    return prevDp[n - 1];
   }
 }
