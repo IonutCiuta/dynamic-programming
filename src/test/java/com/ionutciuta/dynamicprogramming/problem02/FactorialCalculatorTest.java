@@ -1,5 +1,6 @@
 package com.ionutciuta.dynamicprogramming.problem02;
 
+import com.ionutciuta.dynamicprogramming.examples.FactorialCalculator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

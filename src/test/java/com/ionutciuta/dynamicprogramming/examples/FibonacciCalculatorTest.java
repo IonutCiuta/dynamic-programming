@@ -1,4 +1,4 @@
-package com.ionutciuta.dynamicprogramming.problem01;
+package com.ionutciuta.dynamicprogramming.examples;
 
 import org.junit.jupiter.api.Test;
 
