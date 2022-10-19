@@ -43,5 +43,6 @@ class PathsCalculatorTest {
 
     assertEquals(expected, calculator.computeRecursively(m));
     assertEquals(expected, calculator.computeRecursivelyWithMemo(m));
+    assertEquals(expected, calculator.computeRecursively(m));
   }
 }

@@ -61,4 +61,41 @@ public class PathsCalculator {
   private String keyOf(int x, int y) {
     return x + ":" + y;
   }
+
+  private int computeIteratively(IntMatrix matrix) {
+    final var m = matrix.getRowCount();
+    final var n = matrix.getColumnCount();
+    final var dp = new int[m][n];
+
+    // explore first row to the right
+    for (var i = 1; i < n; i++) {
+      if (matrix.getValue(0, i) == 0) {
+        dp[0][i] = 1; // there is only one way to get here - going right
+      } else {
+        break; // no point in looking forward if we can't move further to the right
+      }
+    }
+
+    // explore first column down
+    for (var i = 1; i < m; i++) {
+      if (matrix.getValue(i, 0) == 0) {
+        dp[i][0] = 1; // there is only one way to get here - going down
+      } else {
+        break; // no point in looking forward if we can't move further down
+      }
+    }
+
+    for (var i = 1; i < m; i++) {
+      for (var j = 1; j < n; j++) {
+        if (matrix.getValue(i, j) == 0) { // if there's no wall
+          dp[i][j] = dp[i][j - 1] + dp[i - 1][j]; // look back and above
+        } else {
+          dp[i][j] = 0; // there's no way to get here
+        }
+      }
+    }
+
+    // bottom right corner contains the answer
+    return dp[m - 1][n - 1];
+  }
 }
