@@ -31,6 +31,7 @@ class PathsCalculatorTest {
 
   @Test
   public void shouldReturnNumberOfPathsRecursively() {
+    int expected = 7;
     IntMatrix m =
         new IntMatrix(
             new Integer[][] {
@@ -40,6 +41,7 @@ class PathsCalculatorTest {
               new Integer[] {1, 0, 0, 0, 0}
             });
 
-    assertEquals(7, calculator.computeRecursively(m));
+    assertEquals(expected, calculator.computeRecursively(m));
+    assertEquals(expected, calculator.computeRecursivelyWithMemo(m));
   }
 }
