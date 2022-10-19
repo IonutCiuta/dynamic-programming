@@ -17,6 +17,10 @@ public class PathsCalculator {
     return instance;
   }
 
+  public int computeRecursively(IntMatrix m) {
+    return computeRecursively(0, 0, m);
+  }
+
   private int computeRecursively(int x, int y, IntMatrix m) {
     if (x == m.getRowCount() - 1 && y == m.getColumnCount() - 1) {
       return 1;
@@ -27,10 +31,6 @@ public class PathsCalculator {
     }
 
     return 0;
-  }
-
-  public int computeRecursively(IntMatrix m) {
-    return computeRecursively(0, 0, m);
   }
 
   // DP top-down
