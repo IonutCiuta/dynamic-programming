@@ -18,6 +18,9 @@ class PathsCalculatorTest {
             });
 
     assertEquals(1, calculator.computeRecursively(m1));
+    assertEquals(1, calculator.computeRecursivelyWithMemo(m1));
+    assertEquals(1, calculator.computeIteratively(m1));
+    assertEquals(1, calculator.computeIterativelyOptimized(m1));
 
     IntMatrix m2 =
         new IntMatrix(
@@ -27,6 +30,9 @@ class PathsCalculatorTest {
             });
 
     assertEquals(1, calculator.computeRecursively(m2));
+    assertEquals(1, calculator.computeRecursivelyWithMemo(m2));
+    assertEquals(1, calculator.computeIteratively(m2));
+    assertEquals(1, calculator.computeIterativelyOptimized(m2));
   }
 
   @Test
@@ -43,6 +49,7 @@ class PathsCalculatorTest {
 
     assertEquals(expected, calculator.computeRecursively(m));
     assertEquals(expected, calculator.computeRecursivelyWithMemo(m));
-    assertEquals(expected, calculator.computeRecursively(m));
+    assertEquals(expected, calculator.computeIteratively(m));
+    assertEquals(expected, calculator.computeIterativelyOptimized(m));
   }
 }

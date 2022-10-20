@@ -62,7 +62,7 @@ public class PathsCalculator {
     return x + ":" + y;
   }
 
-  private int computeIteratively(IntMatrix matrix) {
+  public int computeIteratively(IntMatrix matrix) {
     final var m = matrix.getRowCount();
     final var n = matrix.getColumnCount();
     final var dp = new int[m][n];
@@ -97,5 +97,39 @@ public class PathsCalculator {
 
     // bottom right corner contains the answer
     return dp[m - 1][n - 1];
+  }
+
+  public int computeIterativelyOptimized(IntMatrix matrix) {
+    final var m = matrix.getRowCount();
+    final var n = matrix.getColumnCount();
+    var prevDp = new int[n];
+    var dp = new int[n];
+
+    // explore first row to the right and fill prevDp
+    for (var i = 1; i < n; i++) {
+      if (matrix.getValue(0, i) == 0) {
+        dp[i] = 1; // there is only one way to get here - going right
+      } else {
+        break; // no point in looking forward if we can't move further to the right
+      }
+    }
+
+    // explore first column down
+    for (var i = 1; i < m; i++) {
+      prevDp = dp;
+      dp = new int[n];
+      if (matrix.getValue(i, 0) == 0) {
+        dp[0] = 1;
+      }
+      for (var j = 1; j < n; j++) {
+        if (matrix.getValue(i, j) == 0) {
+          dp[j] = dp[j - 1] + prevDp[j];
+        } else {
+          dp[j] = 0;
+        }
+      }
+    }
+
+    return dp[n - 1];
   }
 }
