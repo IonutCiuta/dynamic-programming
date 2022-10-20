@@ -1,4 +1,4 @@
-package com.ionutciuta.dynamicprogramming.problem02;
+package com.ionutciuta.dynamicprogramming.examples;
 
 import java.util.HashMap;
 import java.util.Map;

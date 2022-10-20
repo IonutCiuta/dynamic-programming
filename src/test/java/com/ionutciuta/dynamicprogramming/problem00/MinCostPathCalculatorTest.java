@@ -1,4 +1,4 @@
-package com.ionutciuta.dynamicprogramming.problem03;
+package com.ionutciuta.dynamicprogramming.problem00;
 
 import com.ionutciuta.dynamicprogramming.tools.IntMatrix;
 import com.ionutciuta.dynamicprogramming.tools.MatrixGenerator;
