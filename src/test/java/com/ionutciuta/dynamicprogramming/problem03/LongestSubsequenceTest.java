@@ -24,6 +24,13 @@ class LongestSubsequenceTest {
         expected, calculator.computeRecursivelyWithMemo(s1.toCharArray(), s2.toCharArray()));
   }
 
+  @ParameterizedTest
+  @MethodSource("input")
+  public void shouldReturnLcs_withDp(String s1, String s2, int expected) {
+    assertEquals(
+            expected, calculator.computeWithDp(s1.toCharArray(), s2.toCharArray()));
+  }
+
   public static Stream<Arguments> input() {
     return Stream.of(
         Arguments.of("a", "b", 0),
@@ -33,6 +40,7 @@ class LongestSubsequenceTest {
         Arguments.of("ab", "ab", 2),
         Arguments.of("ab", "acb", 2),
         Arguments.of("acb", "defgacb", 3),
-        Arguments.of("a0c0b", "adefg1c2b3", 3));
+        Arguments.of("a0c0b", "adefg1c2b3", 3),
+        Arguments.of("axby", "1byx", 2));
   }
 }
