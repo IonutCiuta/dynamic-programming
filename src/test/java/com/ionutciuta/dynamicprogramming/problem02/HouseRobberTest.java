@@ -20,7 +20,7 @@ class HouseRobberTest {
   @ParameterizedTest
   @MethodSource("input")
   public void shouldReturnMostMoneyThatCanBeStolen_recursiveCourseSolution(int[] houses, int expected) {
-    assertEquals(expected, calculator.computeRecursively(houses));
+    assertEquals(expected, calculator.recursiveSolution(houses));
   }
 
   @ParameterizedTest
