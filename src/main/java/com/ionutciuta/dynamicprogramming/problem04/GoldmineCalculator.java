@@ -2,6 +2,7 @@ package com.ionutciuta.dynamicprogramming.problem04;
 
 import com.ionutciuta.dynamicprogramming.tools.IntMatrix;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +49,34 @@ public class GoldmineCalculator {
 
     cache.put(key, gold);
     return gold;
+  }
+
+  public int computeWithDp(IntMatrix matrix) {
+    int[][] dp = new int[matrix.getRowCount()][matrix.getColumnCount()];
+
+    for (int j = 0; j < matrix.getColumnCount(); j++) {
+      dp[0][j] = matrix.getValue(0, j);
+    }
+
+    for (int i = 1; i < matrix.getRowCount(); i++) {
+      for (int j = 0; j < matrix.getColumnCount(); j++) {
+        int topLeft = 0;
+        if (j > 0) {
+          topLeft = dp[i - 1][j - 1];
+        }
+
+        int topRight = 0;
+        if (j < matrix.getColumnCount() - 1) {
+          topRight = dp[i - 1][j + 1];
+        }
+
+        int top = dp[i - 1][j];
+
+        dp[i][j] = matrix.getValue(i, j) + Math.max(topLeft, Math.max(top, topRight));
+      }
+    }
+
+    return Arrays.stream(dp[dp.length - 1]).max().orElseThrow();
   }
 
   private String keyOf(int i, int j) {
