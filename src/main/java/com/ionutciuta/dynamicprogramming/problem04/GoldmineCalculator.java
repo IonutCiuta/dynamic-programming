@@ -54,28 +54,35 @@ public class GoldmineCalculator {
   public int computeWithDp(IntMatrix matrix) {
     int[][] dp = new int[matrix.getRowCount()][matrix.getColumnCount()];
 
+    // copy first row from input matrix
     for (int j = 0; j < matrix.getColumnCount(); j++) {
       dp[0][j] = matrix.getValue(0, j);
     }
 
+    // populate each row with value of matrix(i, j) + max(topLeft, top, topRight)
     for (int i = 1; i < matrix.getRowCount(); i++) {
       for (int j = 0; j < matrix.getColumnCount(); j++) {
+        // look for topLeft if possible
         int topLeft = 0;
         if (j > 0) {
           topLeft = dp[i - 1][j - 1];
         }
 
+        // look for topRight if possible
         int topRight = 0;
         if (j < matrix.getColumnCount() - 1) {
           topRight = dp[i - 1][j + 1];
         }
 
+        // look directly above
         int top = dp[i - 1][j];
 
+        // add cell value to max of previous possible origin values
         dp[i][j] = matrix.getValue(i, j) + Math.max(topLeft, Math.max(top, topRight));
       }
     }
 
+    // result is max of last row from dp
     return Arrays.stream(dp[dp.length - 1]).max().orElseThrow();
   }
 
