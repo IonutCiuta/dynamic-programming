@@ -26,6 +26,7 @@ public class GoldmineCalculator {
     if (j >= mine.getColumnCount()) {
       return 0;
     }
+    // can be iterative; only difference from the "official" solution ❤️
     return Math.max(computeMaxGold(0, j, mine, cache), computeMaxGold(j + 1, mine, cache));
   }
 
