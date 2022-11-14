@@ -15,15 +15,11 @@ public abstract class Matrix<T> {
     return data[0].length;
   }
 
-  public int rows() {
-    return getRowCount() - 1;
-  }
-
-  public int cols() {
-    return getColumnCount() - 1;
-  }
-
   public T getValue(int row, int column) {
     return data[row][column];
+  }
+
+  public T[] getRow(int row) {
+    return data[row];
   }
 }
