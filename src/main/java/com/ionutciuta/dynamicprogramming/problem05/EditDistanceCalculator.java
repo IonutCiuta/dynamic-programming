@@ -93,6 +93,7 @@ public class EditDistanceCalculator {
     if (s1.charAt(i) == s2.charAt(j)) {
       result = computeRecursivelyWithMemo(i + 1, j + 1, s1, s2, cache);
       cache.put(key, result);
+      return result;
     }
 
     // chars are not equal, so we definitely need to do one change

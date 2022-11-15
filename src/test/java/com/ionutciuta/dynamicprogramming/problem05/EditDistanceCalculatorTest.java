@@ -18,7 +18,6 @@ class EditDistanceCalculatorTest {
     assertEquals(editDistance, calculator.computeRecursively(s1, s2));
   }
 
-  @Disabled
   @ParameterizedTest
   @MethodSource("input")
   public void shouldComputeEditDistance_recursivelyWithMemo(
