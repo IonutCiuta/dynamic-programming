@@ -1,6 +1,5 @@
 package com.ionutciuta.dynamicprogramming.problem05;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -23,6 +22,12 @@ class EditDistanceCalculatorTest {
   public void shouldComputeEditDistance_recursivelyWithMemo(
       String s1, String s2, int editDistance) {
     assertEquals(editDistance, calculator.computeRecursivelyWithMemo(s1, s2));
+  }
+
+  @ParameterizedTest
+  @MethodSource("input")
+  public void shouldComputeEditDistance_withDp(String s1, String s2, int editDistance) {
+    assertEquals(editDistance, calculator.computeWithDp(s1, s2));
   }
 
   public static Stream<Arguments> input() {

@@ -1,5 +1,6 @@
 package com.ionutciuta.dynamicprogramming.problem05;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,7 +104,7 @@ public class EditDistanceCalculator {
                 // We either do a sub and move both pointers, or -
                 computeRecursivelyWithMemo(i + 1, j + 1, s1, s2, cache),
                 Math.min(
-                    // We do a subtraction, basically skipping to the next char from s1, or -
+                    // We do a removal, basically skipping to the next char from s1, or -
                     computeRecursivelyWithMemo(i + 1, j, s1, s2, cache),
                     // We do an addition, basically skipping to the next char from s2
                     computeRecursivelyWithMemo(i, j + 1, s1, s2, cache)));
@@ -113,5 +114,43 @@ public class EditDistanceCalculator {
 
   private String keyOf(int i, int j) {
     return i + ":" + j;
+  }
+
+  public int computeWithDp(String s1, String s2) {
+    // number of cols for dp with padding of 1
+    final int n = s1.length() + 1;
+    // number of row for dp with padding of 1
+    final int m = s2.length() + 1;
+
+    // padding accounts for empty string
+    final var dp = new int[m][n];
+
+    // dp[0][0] is 0 - distance between "" & "" is always 0
+
+    for (int i = 1; i < n; i++) {
+      // distance between "" and whatever else is the len of s1, i.e. i
+      dp[0][i] = i;
+    }
+
+    for (int j = 1; j < m; j++) {
+      // similar to above, the distance between "" and s2
+      dp[j][0] = j;
+    }
+
+    for (int i = 1; i < m; i++) {
+      for (int j = 1; j < n; j++) {
+        if (s1.charAt(j - 1) == s2.charAt(i - 1)) {
+          // if the current chars are equal, just return the previous distance
+          dp[i][j] = dp[i - 1][j - 1];
+        } else {
+          // as per the recursive function, choose the min between deletion, replacement and addition and add 1
+          dp[i][j] = 1 + Math.min(dp[i][j - 1], Math.min(dp[i - 1][j - 1], dp[i - 1][j]));;
+        }
+      }
+      System.out.println(Arrays.deepToString(dp) + "\n");
+    }
+
+    // the distance between s1 and s2
+    return dp[m - 1][n - 1];
   }
 }
