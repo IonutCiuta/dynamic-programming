@@ -24,6 +24,14 @@ class EditDistanceCalculatorTest {
     assertEquals(editDistance, calculator.computeRecursivelyWithMemo(s1, s2));
   }
 
+
+  @ParameterizedTest
+  @MethodSource("input")
+  public void shouldComputeEditDistance_optimizedRecursiveSolution(
+          String s1, String s2, int editDistance) {
+    assertEquals(editDistance, calculator.computeWithOptimizedRecursiveSolution(s1, s2));
+  }
+
   @ParameterizedTest
   @MethodSource("input")
   public void shouldComputeEditDistance_withDp(String s1, String s2, int editDistance) {
