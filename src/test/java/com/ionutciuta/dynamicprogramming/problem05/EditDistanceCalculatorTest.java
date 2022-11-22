@@ -38,6 +38,12 @@ class EditDistanceCalculatorTest {
     assertEquals(editDistance, calculator.computeWithDp(s1, s2));
   }
 
+  @ParameterizedTest
+  @MethodSource("input")
+  public void shouldComputeEditDistance_withDpOptimized(String s1, String s2, int editDistance) {
+    assertEquals(editDistance, calculator.computeWithOptimizedDp(s1, s2));
+  }
+
   public static Stream<Arguments> input() {
     return Stream.of(
         Arguments.of("", "", 0),

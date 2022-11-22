@@ -199,4 +199,43 @@ public class EditDistanceCalculator {
     // the distance between s1 and s2
     return dp[m - 1][n - 1];
   }
+
+  public int computeWithOptimizedDp(String s1, String s2) {
+    // number of cols for dp rows with padding of 1
+    final int n = s1.length() + 1;
+    // number of dp iterations
+    final int m = s2.length() + 1;
+
+    // first row is the padding row, containing distance between chars of s1 and ""
+    var prev = new int[n];
+
+    // prev[0] is 0 - distance between "" & "" is always 0
+
+    for (int i = 1; i < n; i++) {
+      // distance between "" and whatever else is the len of s1, i.e. i
+      prev[i] = i;
+    }
+
+    for (int i = 1; i < m; i++) {
+      int[] dp = new int[n];
+      // first element is always distance between "" and substring of s2
+      dp[0] = i;
+
+      for (int j = 1; j < n; j++) {
+        if (s1.charAt(j - 1) == s2.charAt(i - 1)) {
+          // if the current chars are equal, just return the previous distance
+          dp[j]= prev[j - 1];
+        } else {
+          // as per the recursive function, choose the min between deletion, replacement and
+          // addition and add 1
+          dp[j] = 1 + Math.min(dp[j - 1], Math.min(prev[j - 1], prev[j]));
+        }
+      }
+
+      prev = dp;
+    }
+
+    // the distance between s1 and s2
+    return prev[n - 1];
+  }
 }
