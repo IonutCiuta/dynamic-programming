@@ -58,4 +58,24 @@ public class NStairsCalculator {
     cache.put(stairs, sum);
     return sum;
   }
+
+  public int computeWithDp(int stairs, int[] steps) {
+    var dp = new int[stairs + 1];
+    // there is only one way to make 0 steps
+    dp[0] = 1;
+
+    for (int i = 1; i <= stairs; i++) {
+      for (int step : steps) {
+        int prev = i - step;
+        // for each step, look back if _possible_ and add
+        // the number of ways you could have reached that
+        // previous location
+        if (prev >= 0) {
+          dp[i] += dp[prev];
+        }
+      }
+    }
+
+    return dp[stairs];
+  }
 }

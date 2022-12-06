@@ -23,10 +23,17 @@ class NStairsCalculatorTest {
     assertEquals(expected, calculator.computeRecursivelyWithMemo(stairs, steps));
   }
 
+  @ParameterizedTest
+  @MethodSource("input")
+  public void computeRecursivelyWithDp(int stairs, int[] steps, int expected) {
+    assertEquals(expected, calculator.computeWithDp(stairs, steps));
+  }
+
   public static Stream<Arguments> input() {
     return Stream.of(
         Arguments.of(10, new int[] {2, 4, 5, 8}, 11),
         Arguments.of(2, new int[] {1, 2}, 2),
-        Arguments.of(3, new int[] {1, 2}, 3));
+        Arguments.of(3, new int[] {1, 2}, 3),
+        Arguments.of(4, new int[] {1, 2, 3}, 7));
   }
 }
